@@ -1,0 +1,301 @@
+%% Packages and Settings
+\UseRawInputEncoding
+\documentclass{article}
+\usepackage[english]{babel}
+\usepackage{adjustbox}
+\usepackage{colortbl}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+
+% https://tex.stackexchange.com/questions/219174/issue-with-page-breaks-before-section-and-toc-hyperlinks?rq=1
+\usepackage{titlesec}
+\usepackage{hyperref}
+\newcommand{\sectionbreak}{\clearpage}
+
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{tabu}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{array}
+
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}m{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+
+% https://tex.stackexchange.com/questions/143015/different-column-number-in-rows
+\usepackage{booktabs,multirow,tabularx}% http://ctan.org/pkg/{booktabs,multirow,tabularx}
+\newcommand{\makecell}[1]{\begin{tabular}{c}#1\end{tabular}}
+
+% https://tex.stackexchange.com/questions/823/remove-ugly-borders-around-clickable-cross-references-and-hyperlinks
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+%% Unicode rules.
+% https://tex.stackexchange.com/questions/215520/output-from-tree-command-in-a-listing
+\usepackage{newunicodechar}
+\newunicodechar{└}{{\smash{\raisebox{0.5ex}{\rule{0.5pt}{\dimexpr\baselineskip-1.5ex}}}\raisebox{0.5ex}{\rule{1ex}{0.5pt}}}}
+\newunicodechar{─}{{\raisebox{0.5ex}{\rule{1.5ex}{0.5pt}}}}
+\newunicodechar{├}{{\smash{\raisebox{-1ex}{\rule{0.5pt}{\baselineskip}}}\raisebox{0.5ex}{\rule{1ex}{0.5pt}}}}
+\newunicodechar{’}{{'}}
+\newunicodechar{“}{{"}}
+\newunicodechar{”}{{"}}
+
+%% Code highlighting.
+\definecolor{commentsColor}{rgb}{0.497495, 0.497587, 0.497464}
+\definecolor{keywordsColor}{rgb}{0.000000, 0.000000, 0.635294}
+\definecolor{stringColor}{rgb}{0.558215, 0.000000, 0.135316}
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize\ttfamily,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{commentsColor}\textit,    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=tb,	                   	   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{keywordsColor}\bfseries,       % keyword style
+  language=Python,                 % the language of the code (can be overrided per snippet)
+  otherkeywords={*,...},           % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{commentsColor}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{stringColor}, % string literal style
+  prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookrightarrow}},
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+  title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+  columns=fixed,                   % Using fixed column width (for e.g. nice alignment)
+  inputencoding=utf8,              % https://tex.stackexchange.com/questions/24528/having-problems-with-listings-and-utf-8-can-it-be-fixed
+  literate={└}{{\smash{\raisebox{0.5ex}{\rule{0.5pt}{\dimexpr\baselineskip-1.5ex}}}\raisebox{0.5ex}{\rule{1ex}{0.5pt}}}}1 {─}{{\raisebox{0.5ex}{\rule{1.5ex}{0.5pt}}}}1 {├}{{\smash{\raisebox{-1ex}{\rule{0.5pt}{\baselineskip}}}\raisebox{0.5ex}{\rule{1ex}{0.5pt}}}}1,
+}
+
+%% Language definitions.
+\lstdefinelanguage{rust}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{rs}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{console}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{\#},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{handlebars}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{shell}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{json}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{yaml}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{toml}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{diff}{
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{text}{}
+\lstdefinelanguage{hbs}{}
+\lstdefinelanguage{cmd}{}
+\lstdefinelanguage{powershell}{}
+\lstdefinelanguage{makefile}{}
+\lstdefinelanguage{markdown}{}
+
+%% Title and Author (retreived from book.toml)
+\title{My Education}
+\author{stepanov-denis}
+
+%% Begin document.
+\begin{document}
+\maketitle
+\clearpage
+\tableofcontents
+\clearpage
+
+%% mdbook-latex begin
+\section{Education Plan}
+\label{Education Plan}
+\label{education-plan}
+\begin{itemize}
+\item Rust
+\item Haskell
+\item Go
+\item Elm
+\item PostgreSQL
+\item Redis
+\item MongoDB
+\item Algorithms
+\item Testing
+\item Docker
+\item Kubernetes
+\item GitHub
+\item Linux
+\item Math
+\item Blockchain
+\end{itemize}
+
+\section{In progress}
+\label{In progress}
+\label{in-progress}
+\begin{itemize}
+\item Rust\begin{itemize}
+\item \href{https://www.oreilly.com/library/view/programming-rust-2nd/9781492052586/}{Programming Rust, 2nd Edition}
+\end{itemize}
+
+\item Haskell\begin{itemize}
+\item \href{https://www.manning.com/books/get-programming-with-haskell?query=Get%20Programming%20with%20Haskell}{Get Programming with Haskell}
+\item \href{https://stepik.org/course/75/info}{Computer Science Center - Функциональное программирование на языке Haskell}
+\end{itemize}
+
+\item Elm\begin{itemize}
+\item \href{https://www.manning.com/books/elm-in-action?query=Elm%20in%20Action}{Elm in Action}
+\end{itemize}
+
+\item Docker\begin{itemize}
+\item \href{https://www.amazon.com/Using-Docker-Developing-Deploying-Containers/dp/1491915765}{Using Docker: Developing and Deploying Software with Containers 1st Edition}
+\end{itemize}
+
+\item Math\begin{itemize}
+\item \href{https://practicum.yandex.ru/math-foundations/}{Яндекс Практикум - Основы математики для цифровых профессий}
+\end{itemize}
+
+\item Design \& Architecture\begin{itemize}
+\item \href{https://www.amazon.com/Digital-Design-Computer-Architecture-Harris/dp/0123944244}{Digital Design and Computer Architecture 2nd Edition}
+\end{itemize}
+
+\item SQL\begin{itemize}
+\item \href{https://stepik.org/course/551/info}{Computer Science Center, СПбПУ (Политех), Высшая школа экономики (НИУ ВШЭ) - Введение в базы данных}
+\item \href{https://www.edx.org/course/databases-5-sql}{Stanford Online - Databases: Relational Databases and SQL}\# Completed
+\end{itemize}
+
+\item Rust\begin{itemize}
+\item \href{https://doc.rust-lang.org/book/}{The Rust Programming Language}
+\item \href{https://github.com/rust-lang/rustlings/}{Rustlings}
+\item \href{https://doc.rust-lang.org/stable/rust-by-example/}{Rust by Example}
+\item \href{https://doc.rust-lang.org/edition-guide/index.html}{The Edition Guide}
+\item \href{https://doc.rust-lang.org/cargo/index.html}{The Cargo Book}
+\item \href{https://doc.rust-lang.org/rustdoc/index.html}{The rustdoc book}
+\end{itemize}
+
+\item Go\begin{itemize}
+\item \href{https://practicum.yandex.ru/go-basics/}{Яндекс Практикум - Основы Go}
+\item \href{https://stepik.org/course/54403/info}{Stepik - Программирование на Golang}
+\end{itemize}
+
+\item Docker\begin{itemize}
+\item \href{https://www.manning.com/books/docker-in-practice-second-edition?a_aid=zwischenzugs&a_bid=550032fc&source=post_page---------------------------}{Docker in Practice, Second Edition}
+\end{itemize}
+
+\item PostgreSQL\begin{itemize}
+\item \href{https://postgrespro.ru/education/books/sqlprimer}{PostgreSQL. Основы языка SQL}
+\item \href{https://postgrespro.ru/education/books/dbtech}{Основы технологий баз данных}
+\item \href{https://postgrespro.ru/education/books/internals}{PostgreSQL изнутри}
+\end{itemize}
+
+\item JavaScript\begin{itemize}
+\item \href{https://eloquentjavascript.net/2nd_edition/}{Eloquent JavaScript second edition}
+\end{itemize}
+
+\item Java\begin{itemize}
+\item \href{https://www.ozon.ru/product/programmirovanie-na-java-dlya-nachinayushchih-136029645/?sh=BtQngoz1wQ}{Программирование на Java для начинающих}
+\end{itemize}
+
+\item Design \& Architecture\begin{itemize}
+\item \href{https://samnewman.io/books/building_microservices/}{Building Microservices, 1st Edition}\# Projects
+\end{itemize}
+
+\item \href{https://github.com/stepanov-denis/ats-monitoring}{ATS Monitoring}
+Application for monitoring and reporting of engineering systems, sending notifications via Telegram-bot, API SMS gateway.
+\end{itemize}
+
+
+\end{document}
