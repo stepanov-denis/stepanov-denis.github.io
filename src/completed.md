@@ -7,7 +7,8 @@
   * [The Cargo Book](https://doc.rust-lang.org/cargo/index.html)
   * [The rustdoc book](https://doc.rust-lang.org/rustdoc/index.html)
 * Go
-  * [Основы Go на practicum.yandex.ru](https://practicum.yandex.ru/go-basics/)
+  * [Яндекс Практикум - Основы Go](https://practicum.yandex.ru/go-basics/)
+  * [Stepik - Программирование на Golang](https://stepik.org/course/54403/info)
 * Docker
   * [Docker in Practice, Second Edition](https://www.manning.com/books/docker-in-practice-second-edition?a_aid=zwischenzugs&a_bid=550032fc&source=post_page---------------------------)
 * PostgreSQL
