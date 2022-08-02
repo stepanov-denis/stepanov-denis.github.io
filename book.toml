@@ -4,8 +4,3 @@ language = "en"
 multilingual = false
 src = "src"
 title = "My Education"
-
-[output.latex]
-latex    = true  # default = true
-pdf      = false  # default = false
-markdown = true  # default = false

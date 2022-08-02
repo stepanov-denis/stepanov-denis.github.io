@@ -1,11 +1,11 @@
 # Education Plan
 * Rust
+* Python
 * Haskell
-* Go
+* Golang
 * Elm
-* PostgreSQL
-* Redis
-* MongoDB
+* SQL
+* NoSQL
 * Algorithms
 * Testing
 * Docker
