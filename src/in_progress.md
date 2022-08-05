@@ -14,4 +14,4 @@
   * [Digital Design and Computer Architecture 2nd Edition](https://www.amazon.com/Digital-Design-Computer-Architecture-Harris/dp/0123944244)
 * SQL
   * [Computer Science Center, СПбПУ (Политех), Высшая школа экономики (НИУ ВШЭ) - Введение в базы данных](https://stepik.org/course/551/info)
-  * [Stanford Online - Databases: Relational Databases and SQL](https://www.edx.org/course/databases-5-sql)
+  * [Stanford Online - Databases: Advanced Topics in SQL](https://www.edx.org/course/advanced-topics-in-sql?utm_source=stepanov-denis&utm_medium=affiliate_partner)

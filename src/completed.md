@@ -11,10 +11,11 @@
   * [Stepik - Программирование на Golang](https://stepik.org/course/54403/info)
 * Docker
   * [Docker in Practice, Second Edition](https://www.manning.com/books/docker-in-practice-second-edition?a_aid=zwischenzugs&a_bid=550032fc&source=post_page---------------------------)
-* PostgreSQL
+* SQL
   * [PostgreSQL. Основы языка SQL](https://postgrespro.ru/education/books/sqlprimer)
   * [Основы технологий баз данных](https://postgrespro.ru/education/books/dbtech)
   * [PostgreSQL изнутри](https://postgrespro.ru/education/books/internals)
+  * [Stanford Online - Databases: Relational Databases and SQL](https://www.edx.org/course/databases-5-sql)
 * JavaScript
   * [Eloquent JavaScript second edition](https://eloquentjavascript.net/2nd_edition/)
 * Java
