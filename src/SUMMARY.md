@@ -1,6 +1,4 @@
 # Summary
 
-- [Education Plan](./education_plan.md)
-- [In progress](./in_progress.md)
-- [Completed](./completed.md)
-- [Projects](./projects.md)
+- [CV](./cv.md)
+- [I'm currently reading](./current_reading.md)
