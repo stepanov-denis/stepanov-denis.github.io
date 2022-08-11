@@ -1,4 +1,4 @@
-# CV
+# Denis Stepanov
 ## About me
 * Location: Remote
 * [GitHub](https://github.com/stepanov-denis)
