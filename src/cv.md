@@ -24,6 +24,10 @@ edX, Stanford Online, 2022 - [repository](https://github.com/stepanov-denis/stan
 Stepik, Stepik and JetBrains Academy, 2022 - [certificate](https://stepik.org/cert/1583810)
 #### Functional programming in Haskell
 Stepik, Computer Science Center, 2022 - [certificate](https://stepik.org/cert/1591247)
+#### Introduction to Databases
+Stepik, Computer Science Center, 2022 - [certificate](https://stepik.org/cert/1598592)
+#### Rustlings
+Stepik, JetBrains, 2022 - [repository](https://github.com/stepanov-denis/rustlings)
 #### Maintenance of computer equipment and computer networks
 Novosibirsk Aviation Technical College, 2004 — 2008
 ## Current education and courses
@@ -31,8 +35,6 @@ Novosibirsk Aviation Technical College, 2004 — 2008
 edX, HarvardX
 #### Databases: Advanced Topics in SQL
 edX, Stanford Online
-#### Introduction to Databases
-Stepik, Computer Science Center
 #### Fundamentals of Mathematics for Digital Professions
 Yandex Practicum
 ## Showcase projects

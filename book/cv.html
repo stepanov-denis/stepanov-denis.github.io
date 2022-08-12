@@ -174,6 +174,10 @@
 <p>Stepik, Stepik and JetBrains Academy, 2022 - <a href="https://stepik.org/cert/1583810">certificate</a></p>
 <h4 id="functional-programming-in-haskell"><a class="header" href="#functional-programming-in-haskell">Functional programming in Haskell</a></h4>
 <p>Stepik, Computer Science Center, 2022 - <a href="https://stepik.org/cert/1591247">certificate</a></p>
+<h4 id="introduction-to-databases"><a class="header" href="#introduction-to-databases">Introduction to Databases</a></h4>
+<p>Stepik, Computer Science Center, 2022 - <a href="https://stepik.org/cert/1598592">certificate</a></p>
+<h4 id="rustlings"><a class="header" href="#rustlings">Rustlings</a></h4>
+<p>Stepik, JetBrains, 2022 - <a href="https://github.com/stepanov-denis/rustlings">repository</a></p>
 <h4 id="maintenance-of-computer-equipment-and-computer-networks"><a class="header" href="#maintenance-of-computer-equipment-and-computer-networks">Maintenance of computer equipment and computer networks</a></h4>
 <p>Novosibirsk Aviation Technical College, 2004 — 2008</p>
 <h2 id="current-education-and-courses"><a class="header" href="#current-education-and-courses">Current education and courses</a></h2>
@@ -181,8 +185,6 @@
 <p>edX, HarvardX</p>
 <h4 id="databases-advanced-topics-in-sql"><a class="header" href="#databases-advanced-topics-in-sql">Databases: Advanced Topics in SQL</a></h4>
 <p>edX, Stanford Online</p>
-<h4 id="introduction-to-databases"><a class="header" href="#introduction-to-databases">Introduction to Databases</a></h4>
-<p>Stepik, Computer Science Center</p>
 <h4 id="fundamentals-of-mathematics-for-digital-professions"><a class="header" href="#fundamentals-of-mathematics-for-digital-professions">Fundamentals of Mathematics for Digital Professions</a></h4>
 <p>Yandex Practicum</p>
 <h2 id="showcase-projects"><a class="header" href="#showcase-projects">Showcase projects</a></h2>
@@ -212,6 +214,22 @@
 
         </div>
 
+        <!-- Livereload script (if served using the cli tool) -->
+        <script type="text/javascript">
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
 
 
 
