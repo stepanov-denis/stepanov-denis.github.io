@@ -32,7 +32,7 @@ Stepik, JetBrains, 2022 - [repository](https://github.com/stepanov-denis/rustlin
 Novosibirsk Aviation Technical College, 2004 — 2008
 ## Current education and courses
 #### CS50's Introduction to Computer Science
-edX, HarvardX
+edX, HarvardX - [repository](https://github.com/stepanov-denis/cs50-x)
 #### Databases: Advanced Topics in SQL
 edX, Stanford Online
 #### Fundamentals of Mathematics for Digital Professions
