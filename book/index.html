@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="sidebar-visible no-js light">
+<html lang="en" class="light" dir="ltr">
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
@@ -8,10 +8,9 @@
 
         <!-- Custom HTML head -->
         
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content="#ffffff">
 
         <link rel="icon" href="favicon.svg">
         <link rel="shortcut icon" href="favicon.png">
@@ -32,15 +31,16 @@
         <!-- Custom theme stylesheets -->
 
     </head>
-    <body>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
         <!-- Provide site root to javascript -->
-        <script type="text/javascript">
+        <script>
             var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
         <!-- Work around some values being stored in localStorage wrapped in quotes -->
-        <script type="text/javascript">
+        <script>
             try {
                 var theme = localStorage.getItem('mdbook-theme');
                 var sidebar = localStorage.getItem('mdbook-sidebar');
@@ -56,50 +56,81 @@
         </script>
 
         <!-- Set the theme before any content is loaded, prevents flash -->
-        <script type="text/javascript">
+        <script>
             var theme;
             try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
             if (theme === null || theme === undefined) { theme = default_theme; }
             var html = document.querySelector('html');
-            html.classList.remove('no-js')
             html.classList.remove('light')
             html.classList.add(theme);
-            html.classList.add('js');
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
         </script>
 
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
         <!-- Hide / unhide sidebar before it is displayed -->
-        <script type="text/javascript">
-            var html = document.querySelector('html');
-            var sidebar = 'hidden';
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
-            html.classList.remove('sidebar-visible');
-            html.classList.add("sidebar-" + sidebar);
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
                 <ol class="chapter"><li class="chapter-item expanded "><a href="cv.html" class="active"><strong aria-hidden="true">1.</strong> CV</a></li><li class="chapter-item expanded "><a href="current_reading.html"><strong aria-hidden="true">2.</strong> I'm currently reading</a></li></ol>
             </div>
-            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
         </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
 
         <div id="page-wrapper" class="page-wrapper">
 
             <div class="page">
                                 <div id="menu-bar-hover-placeholder"></div>
-                <div id="menu-bar" class="menu-bar sticky bordered">
+                <div id="menu-bar" class="menu-bar sticky">
                     <div class="left-buttons">
-                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
                             <i class="fa fa-bars"></i>
-                        </button>
+                        </label>
                         <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
                             <i class="fa fa-paint-brush"></i>
                         </button>
                         <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
                             <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
@@ -132,7 +163,7 @@
                 </div>
 
                 <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
-                <script type="text/javascript">
+                <script>
                     document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
                     document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
                     Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
@@ -147,8 +178,9 @@
 <ul>
 <li>Location: Remote</li>
 <li><a href="https://github.com/stepanov-denis">GitHub</a></li>
+<li><a href="https://crates.io/users/stepanov-denis">Crates</a></li>
 <li><a href="https://t.me/stepanov_d_m">Telegram</a></li>
-<li>Languages: C, Rust, Golang, Haskell, SQL, FBD</li>
+<li>Languages: C, Rust, Golang, Haskell, Python, SQL, FBD</li>
 <li>Databases: PostgreSQL, MySQL, Redis, MongoDB</li>
 <li>Infrastructure and tooling: Docker, GitHub</li>
 <li>CAD: AutoCAD</li>
@@ -168,6 +200,10 @@
 <li>Commissioning</li>
 </ul>
 <h2 id="completed-education-and-courses"><a class="header" href="#completed-education-and-courses">Completed education and courses</a></h2>
+<h4 id="c-programming-with-linux"><a class="header" href="#c-programming-with-linux">C Programming with Linux</a></h4>
+<p>DartmouthX IMTx, 2024</p>
+<h4 id="cs50s-introduction-to-computer-science"><a class="header" href="#cs50s-introduction-to-computer-science">CS50's Introduction to Computer Science</a></h4>
+<p>edX, HarvardX, 2023 - <a href="https://github.com/stepanov-denis/cs50-x">repository</a></p>
 <h4 id="databases-relational-databases-and-sql"><a class="header" href="#databases-relational-databases-and-sql">Databases: Relational Databases and SQL</a></h4>
 <p>edX, Stanford Online, 2022 - <a href="https://github.com/stepanov-denis/stanford-sql">repository</a></p>
 <h4 id="programming-in-golang"><a class="header" href="#programming-in-golang">Programming in Golang</a></h4>
@@ -180,13 +216,13 @@
 <p>Stepik, JetBrains, 2022 - <a href="https://github.com/stepanov-denis/rustlings">repository</a></p>
 <h4 id="maintenance-of-computer-equipment-and-computer-networks"><a class="header" href="#maintenance-of-computer-equipment-and-computer-networks">Maintenance of computer equipment and computer networks</a></h4>
 <p>Novosibirsk Aviation Technical College, 2004 — 2008</p>
+<h4 id="novosibirsk-cooperative-college"><a class="header" href="#novosibirsk-cooperative-college">Novosibirsk Cooperative College</a></h4>
+<p>Economics, accounting, analysis and audit, 2004-2008</p>
 <h2 id="current-education-and-courses"><a class="header" href="#current-education-and-courses">Current education and courses</a></h2>
-<h4 id="cs50s-introduction-to-computer-science"><a class="header" href="#cs50s-introduction-to-computer-science">CS50's Introduction to Computer Science</a></h4>
-<p>edX, HarvardX - <a href="https://github.com/stepanov-denis/cs50-x">repository</a></p>
-<h4 id="databases-advanced-topics-in-sql"><a class="header" href="#databases-advanced-topics-in-sql">Databases: Advanced Topics in SQL</a></h4>
-<p>edX, Stanford Online</p>
-<h4 id="fundamentals-of-mathematics-for-digital-professions"><a class="header" href="#fundamentals-of-mathematics-for-digital-professions">Fundamentals of Mathematics for Digital Professions</a></h4>
-<p>Yandex Practicum</p>
+<h4 id="economy"><a class="header" href="#economy">Economy</a></h4>
+<p>HSE University</p>
+<h4 id="application-programming-in-python"><a class="header" href="#application-programming-in-python">Application programming in Python</a></h4>
+<p>Ural Federal University</p>
 <h2 id="showcase-projects"><a class="header" href="#showcase-projects">Showcase projects</a></h2>
 <h4 id="ats-monitoring---repository"><a class="header" href="#ats-monitoring---repository">ATS Monitoring - <a href="https://github.com/stepanov-denis/ats-monitoring">repository</a></a></h4>
 <p>Application for monitoring and reporting of engineering systems, sending notifications via Telegram-bot, API SMS gateway</p>
@@ -196,7 +232,7 @@
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
 
-                            <a rel="next" href="current_reading.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="current_reading.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -207,7 +243,7 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
 
-                    <a rel="next" href="current_reading.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="current_reading.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
@@ -217,21 +253,22 @@
 
 
 
-        <script type="text/javascript">
+        <script>
             window.playground_copyable = true;
         </script>
 
 
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
 
+    </div>
     </body>
 </html>
